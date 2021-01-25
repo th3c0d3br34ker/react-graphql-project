@@ -32,23 +32,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/th3c0d3br34ker/repo_name">
+  <a href="https://github.com/th3c0d3br34ker/react-graphql-project">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">project_title</h3>
+  <h3 align="center">React + Graphql Project</h3>
 
   <p align="center">
-    project_description
+    A social media app built with React and GraphQL
     <br />
-    <a href="https://github.com/th3c0d3br34ker/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/th3c0d3br34ker/react-graphql-project"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/th3c0d3br34ker/repo_name">View Demo</a>
+    <a href="https://github.com/th3c0d3br34ker/react-graphql-project">View Demo</a>
     ·
-    <a href="https://github.com/th3c0d3br34ker/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/th3c0d3br34ker/react-graphql-project/issues">Report Bug</a>
     ·
-    <a href="https://github.com/th3c0d3br34ker/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/th3c0d3br34ker/react-graphql-project/issues">Request Feature</a>
   </p>
 </p>
 
@@ -108,7 +108,7 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/th3c0d3br34ker/repo_name.git
+   git clone https://github.com/th3c0d3br34ker/react-graphql-project.git
    ```
 2. Install NPM packages
    ```sh
@@ -127,7 +127,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-See the [open issues](https://github.com/th3c0d3br34ker/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/th3c0d3br34ker/react-graphql-project/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -158,15 +158,15 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/th3c0d3br34ker/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/th3c0d3br34ker/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/th3c0d3br34ker/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/th3c0d3br34ker/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/th3c0d3br34ker/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/th3c0d3br34ker/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/th3c0d3br34ker/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/th3c0d3br34ker/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/th3c0d3br34ker/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/th3c0d3br34ker/repo_name/blob/master/LICENSE.txt
-[made-with-shield]: https://img.shields.io/github/languages/top/th3c0d3br34ker/repo_name.svg?style=for-the-badge
-[made-with-url]: https://shields.io/github/languages/top/th3c0d3br34ker/repo_name.svg?style-for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/th3c0d3br34ker/react-graphql-project.svg?style=for-the-badge
+[contributors-url]: https://github.com/th3c0d3br34ker/react-graphql-project/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/th3c0d3br34ker/react-graphql-project.svg?style=for-the-badge
+[forks-url]: https://github.com/th3c0d3br34ker/react-graphql-project/network/members
+[stars-shield]: https://img.shields.io/github/stars/th3c0d3br34ker/react-graphql-project.svg?style=for-the-badge
+[stars-url]: https://github.com/th3c0d3br34ker/react-graphql-project/stargazers
+[issues-shield]: https://img.shields.io/github/issues/th3c0d3br34ker/react-graphql-project.svg?style=for-the-badge
+[issues-url]: https://github.com/th3c0d3br34ker/react-graphql-project/issues
+[license-shield]: https://img.shields.io/github/license/th3c0d3br34ker/react-graphql-project.svg?style=for-the-badge
+[license-url]: https://github.com/th3c0d3br34ker/react-graphql-project/blob/master/LICENSE.txt
+[made-with-shield]: https://img.shields.io/github/languages/top/th3c0d3br34ker/react-graphql-project.svg?style=for-the-badge
+[made-with-url]: https://shields.io/github/languages/top/th3c0d3br34ker/react-graphql-project.svg?style-for-the-badge
