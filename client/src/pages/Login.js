@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 
+import { AuthContext } from "../context/auth";
 import { useForm } from "../util/hooks";
+import { LOGIN_USER } from "../util/graphql";
 
-const Login = ({ history }) => {
+function Login(props) {
+  const { login } = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
@@ -14,11 +16,11 @@ const Login = ({ history }) => {
   });
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(_, result) {
-      history.push("/");
+    update(_, { data: { login: userData } }) {
+      login(userData);
+      props.history.push("/");
     },
     onError(err) {
-      console.log(err.networkError);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: values,
@@ -28,18 +30,10 @@ const Login = ({ history }) => {
     loginUser();
   }
 
-  console.log("Loading: ", loading);
-
   return (
     <div className="form-container">
       <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
-        <h1
-          style={{
-            textAlign: "center",
-          }}
-        >
-          Login
-        </h1>
+        <h1>Login</h1>
         <Form.Input
           label="Username"
           placeholder="Username.."
@@ -58,7 +52,7 @@ const Login = ({ history }) => {
           error={errors.password ? true : false}
           onChange={onChange}
         />
-        <Button type="submit" primary color="red">
+        <Button type="submit" primary>
           Login
         </Button>
       </Form>
@@ -73,18 +67,6 @@ const Login = ({ history }) => {
       )}
     </div>
   );
-};
-
-const LOGIN_USER = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      id
-      email
-      username
-      createdAt
-      token
-    }
-  }
-`;
+}
 
 export default Login;

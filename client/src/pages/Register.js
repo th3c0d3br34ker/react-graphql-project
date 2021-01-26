@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 
+import { AuthContext } from "../context/auth";
 import { useForm } from "../util/hooks";
+import { REGISTER_USER } from "../util/graphql";
 
-const Register = ({ history }) => {
+function Register(props) {
+  const { login } = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
-  const { onChange, onSubmit, values } = useForm(registerUserCallback, {
+  const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
     password: "",
@@ -16,16 +18,17 @@ const Register = ({ history }) => {
   });
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(_, result) {
-      history.push("/");
+    update(_, { data: { register: userData } }) {
+      login(userData);
+      props.history.push("/");
     },
     onError(err) {
-      setErrors(err.graphQLErrors.extensions?.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: values,
   });
 
-  function registerUserCallback() {
+  function registerUser() {
     addUser();
   }
 
@@ -69,7 +72,7 @@ const Register = ({ history }) => {
           error={errors.confirmPassword ? true : false}
           onChange={onChange}
         />
-        <Button type="submit" primary color="red">
+        <Button type="submit" primary>
           Register
         </Button>
       </Form>
@@ -84,30 +87,6 @@ const Register = ({ history }) => {
       )}
     </div>
   );
-};
-
-const REGISTER_USER = gql`
-  mutation register(
-    $username: String!
-    $email: String!
-    $password: String!
-    $confirmPassword: String!
-  ) {
-    register(
-      registerInput: {
-        username: $username
-        email: $email
-        password: $password
-        confirmPassword: $confirmPassword
-      }
-    ) {
-      id
-      email
-      username
-      createdAt
-      token
-    }
-  }
-`;
+}
 
 export default Register;

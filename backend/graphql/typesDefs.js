@@ -25,6 +25,7 @@ module.exports = gql`
   type User {
     id: ID!
     email: String!
+    username: String!
     token: String!
     createdAt: String!
   }
@@ -46,5 +47,8 @@ module.exports = gql`
     createComment(postId: String!, body: String!): Post!
     deleteComment(postId: ID!, commentId: ID!): Post!
     likePost(postId: ID!): Post!
+  }
+  type Subscription {
+    newPost: Post!
   }
 `;
