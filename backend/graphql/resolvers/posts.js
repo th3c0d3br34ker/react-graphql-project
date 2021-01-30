@@ -1,6 +1,7 @@
-const { AuthenticationError } = require("apollo-server");
+const { AuthenticationError, UserInputError } = require("apollo-server");
 
 const Post = require("../../models/Post");
+const User = require("../../models/User");
 const checkAuth = require("../../util/check-auth");
 
 module.exports = {
@@ -30,7 +31,8 @@ module.exports = {
 
   Mutation: {
     async createPost(_, { body }, context) {
-      const user = checkAuth(context);
+      const { username } = checkAuth(context);
+      const user = await User.findOne({ username });
 
       if (body.trim() === "") {
         throw new Error("Post body must not be empty");
@@ -40,6 +42,7 @@ module.exports = {
         body,
         user: user.id,
         username: user.username,
+        userImage: user.image,
         createdAt: new Date().toISOString(),
       });
 
@@ -49,11 +52,11 @@ module.exports = {
     },
 
     async deletePost(_, { postId }, context) {
-      const user = checkAuth(context);
+      const { username } = checkAuth(context);
 
       try {
         const post = await Post.findById(postId);
-        if (user.username === post.username) {
+        if (username === post.username) {
           await post.delete();
           return "Post deleted successfully";
         } else {
@@ -67,10 +70,10 @@ module.exports = {
     async likePost(_, { postId }, context) {
       const { username } = checkAuth(context);
 
-      const post = await Post.findById(postId);
-      if (post) {
+      try {
+        const post = await Post.findById(postId);
         if (post.likes.find((like) => like.username === username)) {
-          // Post already likes, unlike it
+          // Post already post.likes, unlike it
           post.likes = post.likes.filter((like) => like.username !== username);
         } else {
           // Not liked, like post
@@ -82,7 +85,9 @@ module.exports = {
 
         await post.save();
         return post;
-      } else throw new UserInputError("Post not found");
+      } catch (error) {
+        throw new UserInputError("Post not found");
+      }
     },
   },
 };

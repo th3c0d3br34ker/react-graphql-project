@@ -2,11 +2,14 @@ const { AuthenticationError, UserInputError } = require("apollo-server");
 
 const checkAuth = require("../../util/check-auth");
 const Post = require("../../models/Post");
+const User = require("../../models/User");
 
 module.exports = {
   Mutation: {
     createComment: async (_, { postId, body }, context) => {
       const { username } = checkAuth(context);
+      const { image } = await User.findOne({ username });
+
       if (body.trim() === "") {
         throw new UserInputError("Empty comment", {
           errors: {
@@ -21,8 +24,10 @@ module.exports = {
         post.comments.unshift({
           body,
           username,
+          userImage: image,
           createdAt: new Date().toISOString(),
         });
+
         await post.save();
         return post;
       } else throw new UserInputError("Post not found");
