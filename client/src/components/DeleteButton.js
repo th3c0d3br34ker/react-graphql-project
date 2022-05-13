@@ -22,18 +22,17 @@ function DeleteButton({ postId, commentId = false, callback = false }) {
         const data = proxy.readQuery({
           query: FETCH_POSTS_QUERY,
         });
-        const newPosts = data.getPosts.filter(({ id }) => id !== postId);
-        console.log(newPosts);
-        data.getPosts = newPosts;
-        proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+        proxy.writeQuery({
+          query: FETCH_POSTS_QUERY,
+          data: {
+            getPosts: data.getPosts.filter(({ id }) => id !== postId),
+          },
+        });
       }
-      if (!!callback) {
-        console.log("Callback called!");
-        callback();
-      }
+      if (!!callback) callback();
     },
-    onError(err) {
-      console.log(err.graphQLErrors[0].extensions.exception.errors);
+    onError(error) {
+      console.log(error.graphQLErrors[0].extensions.exception.errors);
     },
     variables: {
       postId,

@@ -1,23 +1,27 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_POSTS_QUERY = gql`
-  {
+  query GetPosts {
     getPosts {
       id
       body
       createdAt
       username
-      likeCount
+      userImage
       likes {
-        username
-      }
-      commentCount
-      comments {
         id
         username
         createdAt
-        body
       }
+      likeCount
+      comments {
+        id
+        body
+        username
+        userImage
+        createdAt
+      }
+      commentCount
     }
   }
 `;
@@ -29,6 +33,7 @@ export const CREATE_POST_MUTATION = gql`
       body
       createdAt
       username
+      userImage
       likes {
         id
         username
@@ -39,6 +44,7 @@ export const CREATE_POST_MUTATION = gql`
         id
         body
         username
+        userImage
         createdAt
       }
       commentCount
@@ -52,6 +58,7 @@ export const LOGIN_USER = gql`
       id
       email
       username
+      image
       createdAt
       token
     }
@@ -123,8 +130,9 @@ export const SUBMIT_COMMENT_MUTATION = gql`
       comments {
         id
         body
-        createdAt
         username
+        userImage
+        createdAt
       }
       commentCount
     }
@@ -132,12 +140,13 @@ export const SUBMIT_COMMENT_MUTATION = gql`
 `;
 
 export const FETCH_POST_QUERY = gql`
-  query($postId: ID!) {
+  query GetPost($postId: ID!) {
     getPost(postId: $postId) {
       id
       body
       createdAt
       username
+      userImage
       likeCount
       likes {
         username
@@ -146,6 +155,7 @@ export const FETCH_POST_QUERY = gql`
       comments {
         id
         username
+        userImage
         createdAt
         body
       }

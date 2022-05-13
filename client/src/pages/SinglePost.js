@@ -28,9 +28,7 @@ function SinglePost(props) {
   const [comment, setComment] = useState("");
 
   const { data, loading } = useQuery(FETCH_POST_QUERY, {
-    variables: {
-      postId,
-    },
+  
   });
 
   const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
@@ -57,6 +55,7 @@ function SinglePost(props) {
       body,
       createdAt,
       username,
+      userImage,
       comments,
       likes,
       likeCount,
@@ -67,11 +66,7 @@ function SinglePost(props) {
       <Grid>
         <Grid.Row>
           <Grid.Column width={2}>
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/molly.png"
-              size="small"
-              float="right"
-            />
+            <Image src={userImage} size="small" float="right" />
           </Grid.Column>
           <Grid.Column width={10}>
             <Card fluid>
@@ -135,7 +130,17 @@ function SinglePost(props) {
                   {user && user.username === comment.username && (
                     <DeleteButton postId={id} commentId={comment.id} />
                   )}
-                  <Card.Header>{comment.username}</Card.Header>
+                  <Card.Header>
+                    <Image
+                      floated="left"
+                      size="medium"
+                      avatar
+                      src={comment.userImage}
+                      alt="avatar"
+                    />
+
+                    {comment.username}
+                  </Card.Header>
                   <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
                   <Card.Description>{comment.body}</Card.Description>
                 </Card.Content>

@@ -5,9 +5,11 @@ import { useMutation } from "@apollo/react-hooks";
 import { AuthContext } from "../context/auth";
 import { useForm } from "../util/hooks";
 import { LOGIN_USER } from "../util/graphql";
+import { useHistory } from "react-router-dom";
 
-function Login(props) {
+function Login() {
   const { login } = useContext(AuthContext);
+  const history = useHistory();
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
@@ -18,7 +20,7 @@ function Login(props) {
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(_, { data: { login: userData } }) {
       login(userData);
-      props.history.push("/");
+      history.push("/");
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);

@@ -43,6 +43,7 @@ function AuthProvider(props) {
 
   function login(userData) {
     localStorage.setItem("jwtToken", userData.token);
+    console.log("Login called from client!", userData);
     dispatch({
       type: "LOGIN",
       payload: userData,
