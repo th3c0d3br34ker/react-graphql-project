@@ -6,7 +6,7 @@ module.exports = gql`
     body: String!
     createdAt: String!
     username: String!
-    userImage: String!
+    userImage: String
     comments: [Comment]!
     likes: [Like]!
     likeCount: Int!
@@ -16,7 +16,7 @@ module.exports = gql`
     id: ID!
     createdAt: String!
     username: String!
-    userImage: String!
+    userImage: String
     body: String!
   }
   type Like {
@@ -37,6 +37,7 @@ module.exports = gql`
     password: String!
     confirmPassword: String!
     email: String!
+    image: String!
   }
   type Query {
     getPosts: [Post]

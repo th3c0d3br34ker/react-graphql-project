@@ -54,24 +54,24 @@ module.exports = {
 
     async register(
       _,
-      { registerInput: { username, email, password, confirmPassword } },
+      { registerInput: { username, email, image, password, confirmPassword } },
       context,
       info
     ) {
-      // TODO HASH PASSWORD AND RETURN AUTH TOKEN.
 
-      // TODO VALIDATE USER.
+      // VALIDATE USER.
       const { valid, errors } = validateRegisterInput(
         username,
         email,
         password,
         confirmPassword
       );
+
       if (!valid) {
         throw new UserInputError("Errors", { errors });
       }
 
-      // TODO USER DOESNT EXIST.
+      // USER DOESNT EXIST.
       const user = await User.findOne({ username });
       if (user) {
         throw new UserInputError("This username is already taken", {
@@ -81,13 +81,14 @@ module.exports = {
         });
       }
 
-      // hash password and create an auth token
+      // HASH PASSWORD AND CREATE A NEW USER
       password = await bcrypt.hash(password, 12);
 
       const newUser = new User({
         email,
         username,
         password,
+        image,
         createdAt: new Date().toISOString(),
       });
 

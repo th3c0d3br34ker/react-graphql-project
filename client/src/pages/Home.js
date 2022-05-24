@@ -1,43 +1,27 @@
 import React, { useContext } from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { Grid, Transition } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
 import PostForm from "../components/PostForm";
-import { FETCH_POSTS_QUERY } from "../util/graphql";
+import PostsList from "../components/PostsList";
 
-import PostCard from "../components/PostCard";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
-  const { data, loading } = useQuery(FETCH_POSTS_QUERY);
-
-  if (loading) {
-    return <h1>Loading posts...</h1>;
-  }
-
-  const { getPosts: posts } = data;
   return (
-    <Grid columns={3}>
+    <Grid>
       {user && (
-        <Grid.Column>
+        <Grid.Column width={16}>
           <PostForm />
         </Grid.Column>
       )}
 
-      <Grid.Row className="page-title">
+      <Grid.Column className="page-title" width={16}>
         <h1>Recent Posts</h1>
-      </Grid.Row>
-      <Grid.Row>
-        <Transition.Group>
-          {posts.map((post) => (
-            <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-              <PostCard post={post} />
-            </Grid.Column>
-          ))}
-        </Transition.Group>
-      </Grid.Row>
-    </Grid>
+      </Grid.Column>
+
+      <PostsList />
+    </Grid >
   );
 };
 

@@ -2,7 +2,7 @@ const { ApolloServer } = require("apollo-server");
 const mongoose = require("mongoose");
 
 const resolvers = require("./graphql/resolvers");
-const { MONGODB } = require("./config.js");
+const { MONGODB_URI } = require("./config.js");
 
 const typeDefs = require("./graphql/typesDefs");
 
@@ -15,9 +15,9 @@ const server = new ApolloServer({
 });
 
 mongoose
-  .connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("MongoDB Connected");
+    console.log("MongoDB Connected...");
     return server.listen({ port: PORT });
   })
   .then((res) => {

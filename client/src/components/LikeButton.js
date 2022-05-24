@@ -11,8 +11,6 @@ function LikeButton({ user, post: { id, likeCount, likes } }) {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    console.log("UseEffect Called");
-
     if (user && likes.find((like) => like.username === user.username)) {
       setLiked(true);
     } else {

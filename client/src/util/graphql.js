@@ -69,6 +69,7 @@ export const REGISTER_USER = gql`
   mutation register(
     $username: String!
     $email: String!
+    $image: String!
     $password: String!
     $confirmPassword: String!
   ) {
@@ -76,6 +77,7 @@ export const REGISTER_USER = gql`
       registerInput: {
         username: $username
         email: $email
+        image: $image
         password: $password
         confirmPassword: $confirmPassword
       }
@@ -131,7 +133,6 @@ export const SUBMIT_COMMENT_MUTATION = gql`
         id
         body
         username
-        userImage
         createdAt
       }
       commentCount

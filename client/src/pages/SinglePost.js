@@ -9,6 +9,8 @@ import {
   Image,
   Icon,
   Label,
+  Dimmer,
+  Loader,
 } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
@@ -18,17 +20,18 @@ import MyPopup from "../util/MyPopup";
 import { FETCH_POST_QUERY, SUBMIT_COMMENT_MUTATION } from "../util/graphql";
 import { useHistory, useParams } from "react-router-dom";
 
-function SinglePost(props) {
+function SinglePost() {
   const history = useHistory();
   const { postId } = useParams();
-  // const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
   const commentInputRef = useRef(null);
 
   const [comment, setComment] = useState("");
 
   const { data, loading } = useQuery(FETCH_POST_QUERY, {
-  
+    variables: {
+      postId
+    }
   });
 
   const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
@@ -47,7 +50,12 @@ function SinglePost(props) {
   }
 
   if (loading) {
-    return <p>Loading post..</p>;
+    return (
+      <Dimmer active inverted>
+        <Loader size="massive" />
+      </Dimmer>
+    );
+
   } else {
     const { getPost } = data;
     const {
@@ -64,90 +72,91 @@ function SinglePost(props) {
 
     return (
       <Grid>
-        <Grid.Row>
-          <Grid.Column width={2}>
-            <Image src={userImage} size="small" float="right" />
-          </Grid.Column>
-          <Grid.Column width={10}>
+        <Grid.Column width={4}>
+          <Image
+            src={`https://semantic-ui.com/images/avatar2/large/${userImage}.png`}
+            size="small"
+          />
+        </Grid.Column>
+        <Grid.Column width={12}>
+          <Card fluid>
+            <Card.Content>
+              <Card.Header>{username}</Card.Header>
+              <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
+              <Card.Description>{body}</Card.Description>
+            </Card.Content>
+            <hr />
+            <Card.Content extra>
+              <LikeButton user={user} post={{ id, likeCount, likes }} />
+              <MyPopup content="Comment on post">
+                <Button
+                  as="div"
+                  labelPosition="right"
+                  onClick={() => console.log("Comment on post")}
+                >
+                  <Button basic color="blue">
+                    <Icon name="comments" />
+                  </Button>
+                  <Label basic color="blue" pointing="left">
+                    {commentCount}
+                  </Label>
+                </Button>
+              </MyPopup>
+              {user && user.username === username && (
+                <DeleteButton postId={id} callback={deletePostCallback} />
+              )}
+            </Card.Content>
+          </Card>
+          {user && (
             <Card fluid>
               <Card.Content>
-                <Card.Header>{username}</Card.Header>
-                <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
-                <Card.Description>{body}</Card.Description>
-              </Card.Content>
-              <hr />
-              <Card.Content extra>
-                <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <MyPopup content="Comment on post">
-                  <Button
-                    as="div"
-                    labelPosition="right"
-                    onClick={() => console.log("Comment on post")}
-                  >
-                    <Button basic color="blue">
-                      <Icon name="comments" />
-                    </Button>
-                    <Label basic color="blue" pointing="left">
-                      {commentCount}
-                    </Label>
-                  </Button>
-                </MyPopup>
-                {user && user.username === username && (
-                  <DeleteButton postId={id} callback={deletePostCallback} />
-                )}
+                <p>Post a comment</p>
+                <Form>
+                  <div className="ui action input fluid">
+                    <input
+                      type="text"
+                      placeholder="Comment.."
+                      name="comment"
+                      value={comment}
+                      onChange={(event) => setComment(event.target.value)}
+                      ref={commentInputRef}
+                    />
+                    <button
+                      type="submit"
+                      className="ui button blue"
+                      disabled={comment.trim() === ""}
+                      onClick={submitComment}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </Form>
               </Card.Content>
             </Card>
-            {user && (
-              <Card fluid>
-                <Card.Content>
-                  <p>Post a comment</p>
-                  <Form>
-                    <div className="ui action input fluid">
-                      <input
-                        type="text"
-                        placeholder="Comment.."
-                        name="comment"
-                        value={comment}
-                        onChange={(event) => setComment(event.target.value)}
-                        ref={commentInputRef}
-                      />
-                      <button
-                        type="submit"
-                        className="ui button teal"
-                        disabled={comment.trim() === ""}
-                        onClick={submitComment}
-                      >
-                        Submit
-                      </button>
-                    </div>
-                  </Form>
-                </Card.Content>
-              </Card>
-            )}
-            {comments.map((comment) => (
-              <Card fluid key={comment.id}>
-                <Card.Content>
-                  {user && user.username === comment.username && (
-                    <DeleteButton postId={id} commentId={comment.id} />
-                  )}
-                  <Card.Header>
-                    <Image
-                      floated="left"
-                      size="medium"
-                      avatar
-                      src={comment.userImage}
-                      alt="avatar"
-                    />
+          )}
+          {comments.map((comment) => (
+            <Card fluid key={comment.id}>
+              <Card.Content>
+                {user && user.username === comment.username && (
+                  <DeleteButton postId={id} commentId={comment.id} />
+                )}
+                <Card.Header>
+                  <Image
+                    floated="left"
+                    size="medium"
+                    avatar
+                    src={`https://semantic-ui.com/images/avatar2/small/${comment.userImage}.png`}
+                    alt="avatar"
+                  />
 
-                    {comment.username}
-                  </Card.Header>
-                  <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
-                  <Card.Description>{comment.body}</Card.Description>
-                </Card.Content>
-              </Card>
-            ))}
-          </Grid.Column>
-        </Grid.Row>
+                  {comment.username}
+                </Card.Header>
+                <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+                <Card.Description>{comment.body}</Card.Description>
+              </Card.Content>
+            </Card>
+          ))}
+        </Grid.Column>
       </Grid>
     );
   }

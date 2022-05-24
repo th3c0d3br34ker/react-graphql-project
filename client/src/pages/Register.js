@@ -5,6 +5,9 @@ import { useMutation } from "@apollo/react-hooks";
 import { AuthContext } from "../context/auth";
 import { useForm } from "../util/hooks";
 import { REGISTER_USER } from "../util/graphql";
+import AvatarFormSelect from "../components/AvatarFormSelect";
+
+
 
 function Register(props) {
   const { login } = useContext(AuthContext);
@@ -13,6 +16,7 @@ function Register(props) {
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
+    image: "",
     password: "",
     confirmPassword: "",
   });
@@ -30,6 +34,16 @@ function Register(props) {
 
   function registerUser() {
     addUser();
+  }
+
+  function handleAvatarChange(_, { name, value }) {
+    onChange({
+      target: {
+        name,
+        value
+      }
+    })
+
   }
 
   return (
@@ -72,20 +86,26 @@ function Register(props) {
           error={errors.confirmPassword ? true : false}
           onChange={onChange}
         />
+
+        <AvatarFormSelect handleAvatarChange={handleAvatarChange} />
+
         <Button type="submit" primary>
           Register
         </Button>
       </Form>
-      {Object.keys(errors).length > 0 && (
-        <div className="ui error message">
-          <ul className="list">
-            {Object.values(errors).map((value) => (
-              <li key={value}>{value}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+
+      {
+        Object.keys(errors).length > 0 && (
+          <div className="ui error message">
+            <ul className="list">
+              {Object.values(errors).map((value) => (
+                <li key={value}>{value}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div >
   );
 }
 

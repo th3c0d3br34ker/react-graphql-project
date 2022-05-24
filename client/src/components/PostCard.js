@@ -34,7 +34,7 @@ function PostCard({
           floated="right"
           size="medium"
           avatar
-          src={userImage}
+          src={`https://semantic-ui.com/images/avatar2/small/${userImage}.png`}
           alt="avatar"
         />
         <Card.Header>{username}</Card.Header>

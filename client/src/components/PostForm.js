@@ -4,10 +4,8 @@ import { useMutation } from "@apollo/react-hooks";
 
 import { useForm } from "../util/hooks";
 import { FETCH_POSTS_QUERY, CREATE_POST_MUTATION } from "../util/graphql";
-// import { useHistory } from "react-router-dom";
 
 function PostForm() {
-  // const history = useHistory();
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
     body: "",
   });
@@ -33,7 +31,6 @@ function PostForm() {
 
   function createPostCallback() {
     createPost();
-    // history.go(0);
   }
 
   return (
@@ -49,7 +46,7 @@ function PostForm() {
             error={!!error}
             label="Whats on your mind?"
           />
-          <Button type="submit" color="teal">
+          <Button type="submit" color="blue">
             Submit
           </Button>
         </Form.Field>
