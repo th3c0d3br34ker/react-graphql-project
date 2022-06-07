@@ -1,0 +1,23 @@
+{
+  "name": "react-graphql-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "install": "node scripts/install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/th3c0d3br34ker/react-graphql-project.git"
+  },
+  "author": "th3c0d3br34ker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/th3c0d3br34ker/react-graphql-project/issues"
+  },
+  "homepage": "https://github.com/th3c0d3br34ker/react-graphql-project#readme",
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
+}

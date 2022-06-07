@@ -1,28 +1,15 @@
 import React from "react";
 import App from "./App";
 import ApolloClient from "apollo-client";
-// import { InMemoryCache } from "apollo-cache-inmemory";
 import { createHttpLink } from "apollo-link-http";
 import { ApolloProvider, InMemoryCache } from "@apollo/client";
 import { setContext } from "apollo-link-context";
+import { API_URI } from "./config";
 
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        // getPost(_, { args, toReference }) {
-        //   return toReference({
-        //     __typename: "Post",
-        //     id: args.id,
-        //   });
-        // },
-      },
-    },
-  },
-});
+const cache = new InMemoryCache();
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:5000",
+  uri: API_URI,
 });
 
 const authLink = setContext(() => {

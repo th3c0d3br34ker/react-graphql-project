@@ -69,9 +69,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
@@ -85,9 +82,9 @@
 
 ### Built With
 
-- []()
-- []()
-- []()
+- [ReactJS](https://reactjs.org/docs/getting-started.html)
+- [GraphQL](https://graphql.org/graphql-js/)
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
 
 <!-- GETTING STARTED -->
 
@@ -110,36 +107,16 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/th3c0d3br34ker/react-graphql-project.git
    ```
-2. Install NPM packages
+2. Install NPM packages (backend)
    ```sh
+   cd backend
    npm install
    ```
-
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-See the [open issues](https://github.com/th3c0d3br34ker/react-graphql-project/issues) for a list of proposed features (and known issues).
-
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+3. Install NPM packages (backend)
+   ```sh
+   cd client
+   npm install
+   ```
 
 <!-- LICENSE -->
 
@@ -151,9 +128,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Acknowledgements
 
-- []()
-- []()
-- []()
+- This [tutorial](https://www.youtube.com/watch?v=n1mdAPFq2Os&ab_channel=freeCodeCamp.org).
+
+> Made with 💙 by Jainam Desai
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -170,3 +147,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [license-url]: https://github.com/th3c0d3br34ker/react-graphql-project/blob/master/LICENSE.txt
 [made-with-shield]: https://img.shields.io/github/languages/top/th3c0d3br34ker/react-graphql-project.svg?style=for-the-badge
 [made-with-url]: https://shields.io/github/languages/top/th3c0d3br34ker/react-graphql-project.svg?style-for-the-badge
+[product-screenshot]: images/screenshot.png
